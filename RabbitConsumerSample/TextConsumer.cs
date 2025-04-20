@@ -1,5 +1,4 @@
-﻿using Microsoft.Extensions.Hosting;
-using RabbitMQ.Client;
+﻿using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using System.Text;
 
@@ -11,7 +10,7 @@ namespace RabbitConsumerSample
 
         public TextConsumer(ILogger<TextConsumer> logger)
         {
-            _logger = logger;            
+            _logger = logger;
         }
 
 
@@ -19,7 +18,13 @@ namespace RabbitConsumerSample
         {
             _logger.LogInformation("👂 TextConsumer is starting...");
 
-            var factory = new ConnectionFactory() { HostName = "localhost" };
+            var factory = new ConnectionFactory()
+            {
+                HostName = "rabbitmq",
+                Port = 5672,
+                UserName = "guest",
+                Password = "guest"
+            };
             using var connection = await factory.CreateConnectionAsync();
             using var channel = await connection.CreateChannelAsync();
 

@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq
+    ports:
+      - "15672:15672"
+      - "5672:5672"
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+    networks:
+      - mynetwork
+
+  publisher:
+    build:
+      context: .
+      dockerfile: RabbitPublisherSample/Dockerfile
+    depends_on:
+      - rabbitmq
+    networks:
+      - mynetwork
+
+  consumer:
+    build:
+      context: .
+      dockerfile: RabbitConsumerSample/Dockerfile
+    depends_on:
+      - rabbitmq
+    networks:
+      - mynetwork
+
+networks:
+  mynetwork:

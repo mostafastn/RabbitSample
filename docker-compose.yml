@@ -22,16 +22,11 @@ services:
     networks:
       - mynetwork
 
-  consumer-base:
+  consumer1:
     build:
       context: .
       dockerfile: RabbitConsumerSample/Dockerfile
-    image: consumer-base
-    networks:
-      - mynetwork
-
-  consumer1:
-    image: consumer-base
+    image: consumer
     environment:
       - ConsumerName=consumer-1
     depends_on:
@@ -40,7 +35,7 @@ services:
       - mynetwork
 
   consumer2:
-    image: consumer-base
+    image: consumer
     environment:
       - ConsumerName=consumer-2
     depends_on:

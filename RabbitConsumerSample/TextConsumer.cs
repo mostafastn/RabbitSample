@@ -35,7 +35,8 @@ namespace RabbitConsumerSample
             {
                 var body = ea.Body.ToArray();
                 var message = Encoding.UTF8.GetString(body);
-                _logger.LogInformation($"📩 Received message: {message}");
+                _logger.LogInformation($"📩 Received message by {Environment.GetEnvironmentVariable("ConsumerName") ?? "default"}: {message}");
+                
                 await Task.CompletedTask;
             };
 

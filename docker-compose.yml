@@ -22,10 +22,23 @@ services:
     networks:
       - mynetwork
 
-  consumer:
+  consumer1:
     build:
       context: .
       dockerfile: RabbitConsumerSample/Dockerfile
+    environment:
+      - ConsumerName=consumer-1
+    depends_on:
+      - rabbitmq
+    networks:
+      - mynetwork
+
+  consumer2:
+    build:
+      context: .
+      dockerfile: RabbitConsumerSample/Dockerfile
+    environment:
+      - ConsumerName=consumer-2
     depends_on:
       - rabbitmq
     networks:

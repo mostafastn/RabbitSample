@@ -45,7 +45,7 @@ namespace RabbitPublisherSample
 
                 _logger.LogInformation("✅ Message sent: {msg}", message);
 
-                //await Task.Delay(5000, stoppingToken); // هر ۵ ثانیه یک بار
+                await Task.Delay(1000, stoppingToken); // هر ۵ ثانیه یک بار
             }
 
             _logger.LogInformation("🛑 Background Service is stopping.");

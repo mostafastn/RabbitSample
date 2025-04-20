@@ -36,7 +36,12 @@ namespace RabbitConsumerSample
                 var body = ea.Body.ToArray();
                 var message = Encoding.UTF8.GetString(body);
                 _logger.LogInformation($"📩 Received message by {Environment.GetEnvironmentVariable("ConsumerName") ?? "default"}: {message}");
-                
+
+                // تأخیر تصادفی قبل از پردازش پیام
+                Random rnd = new Random();
+                int delay = rnd.Next(500, 3000); // تأخیر تصادفی بین 500 تا 3000 میلی‌ثانیه
+                await Task.Delay(delay, stoppingToken);
+
                 await Task.CompletedTask;
             };
 

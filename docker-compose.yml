@@ -13,10 +13,11 @@ services:
     networks:
       - mynetwork
 
-  publisher:
+  publisher1:
     build:
       context: .
       dockerfile: RabbitPublisherSample/Dockerfile
+    image: publisher
     depends_on:
       - rabbitmq
     networks:
@@ -38,6 +39,15 @@ services:
     image: consumer
     environment:
       - ConsumerName=consumer-2
+    depends_on:
+      - rabbitmq
+    networks:
+      - mynetwork
+
+  consumer3:
+    image: consumer
+    environment:
+      - ConsumerName=consumer-3
     depends_on:
       - rabbitmq
     networks:
